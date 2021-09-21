@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Profile;
 import springcourse.crudstudent.model.Student;
 import springcourse.crudstudent.repository.StudentRepository;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -24,6 +25,6 @@ public class Seeding implements CommandLineRunner {
         Student s4 = new Student(null, "Hatus Gabriel", 25L, "hatus@gmail.com");
         Student s5 = new Student(null, "Romulo Goré", 25L, "gorefamily@gmail.com");
 
-        studentRepository.saveAll(List.of(s1,s2,s3,s4,s5));
+        studentRepository.saveAll(Arrays.asList(s1,s2,s3,s4,s5));
     }
 }
