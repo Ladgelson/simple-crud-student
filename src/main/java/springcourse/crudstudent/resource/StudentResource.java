@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springcourse.crudstudent.dto.StudentDto;
-import springcourse.crudstudent.mapper.StudentMapper;
 import springcourse.crudstudent.model.Student;
 import springcourse.crudstudent.service.StudentService;
 
@@ -18,8 +17,6 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class StudentResource {
     @Autowired
     private StudentService service;
-
-    private StudentMapper mapper = Mappers.getMapper(StudentMapper.class);
 
     @GetMapping
     public ResponseEntity<Page<Student>> findAll(Pageable pageable) {
@@ -33,13 +30,13 @@ public class StudentResource {
 
     @PostMapping
     public ResponseEntity<Student> create(@RequestBody StudentDto student) {
-        return ResponseEntity.status(CREATED).body(service.save(mapper.studentDtoToStudent(student)));
+        return ResponseEntity.status(CREATED).body(service.save(service.studentDtoToStudent(student)));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Student> update(@PathVariable Long id, @RequestBody StudentDto studentDto) {
         service.findById(id);
-        Student student = mapper.studentDtoToStudent(studentDto);
+        Student student = service.studentDtoToStudent(studentDto);
         student.setId(id);
         return ResponseEntity.ok().body(service.save(student));
     }

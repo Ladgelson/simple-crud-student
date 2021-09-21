@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import springcourse.crudstudent.dto.StudentDto;
 import springcourse.crudstudent.exception.BadRequestException;
 import springcourse.crudstudent.model.Student;
 import springcourse.crudstudent.repository.StudentRepository;
@@ -40,5 +41,13 @@ public class StudentService implements StudentServiceInterface {
     public void delete(Long id) {
         Student student = findById(id);
         studentRepository.delete(student);
+    }
+
+    public Student studentDtoToStudent(StudentDto dto) {
+        return Student.builder()
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .age(dto.getAge())
+                .build();
     }
 }
